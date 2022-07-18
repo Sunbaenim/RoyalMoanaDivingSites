@@ -1,5 +1,6 @@
 using RoyalMoanaDivingSites.DAL;
 using Microsoft.EntityFrameworkCore;
+using RoyalMoanaDivingSites.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ builder.Services.AddDbContext<RmdsDbContext>(options =>
 {
     options.UseMySql(builder.Configuration.GetConnectionString("RmdsDatabase"), new MySqlServerVersion(new Version(8, 0, 29)));
 });
+builder.Services.AddScoped<DivingSiteService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
