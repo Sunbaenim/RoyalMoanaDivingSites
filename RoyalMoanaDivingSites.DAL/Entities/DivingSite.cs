@@ -10,7 +10,7 @@ namespace RoyalMoanaDivingSites.DAL.Entities
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public List<Arm> Arms { get; set; }
-        public string Level { get; set; }
+        public List<Level> Levels { get; set; }
         public string? Tide { get; set; }
         public string Current { get; set; }
         public short Depth { get; set; }

@@ -1,5 +1,6 @@
 ﻿using RoyalMoanaDivingSites.API.DTO.Arm;
 using RoyalMoanaDivingSites.API.DTO.Image;
+using RoyalMoanaDivingSites.API.DTO.Level;
 
 namespace RoyalMoanaDivingSites.API.DTO.DivingSite
 {
@@ -9,8 +10,8 @@ namespace RoyalMoanaDivingSites.API.DTO.DivingSite
         public string Name { get; set; }
         public string Image { get; set; }
         public string MapsUrl { get; set; }
-        public List<ArmIndexDTO> Arm { get; set; }
-        public string Level { get; set; }
+        public List<ArmIndexDTO> Arms { get; set; }
+        public List<LevelIndexDTO> Levels { get; set; }
         public string Tide { get; set; }
         public string Current { get; set; }
         public short Depth { get; set; }

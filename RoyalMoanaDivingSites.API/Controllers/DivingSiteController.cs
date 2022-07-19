@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RoyalMoanaDivingSites.API.DTO;
+using RoyalMoanaDivingSites.API.DTO.DivingSite;
 using RoyalMoanaDivingSites.API.Services;
 
 namespace RoyalMoanaDivingSites.API.Controllers
@@ -16,9 +18,9 @@ namespace RoyalMoanaDivingSites.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetDivingSites()
+        public IActionResult GetDivingSites([FromQuery]DivingSiteFilterDTO filter)
         {
-            return Ok(_ds.GetAllDivingSites());
+            return Ok(_ds.GetAllDivingSites(filter));
         }
     }
 }

@@ -20,10 +20,6 @@ namespace RoyalMoanaDivingSites.DAL.Configurations
                 .IsRequired()
                 .HasColumnType("decimal(17,15)");
 
-            builder.Property(ds => ds.Level)
-                .HasMaxLength(5)
-                .IsRequired();
-
             builder.Property(ds => ds.Tide)
                 .HasMaxLength(7);
 

@@ -14,12 +14,11 @@ namespace RoyalMoanaDivingSites.API.Mappers
                 Image = entity.Images.Where(i => i.IsMainImage)
                     .Select(i => i.ToImageIndexDTO()).FirstOrDefault()!.ImageUrl,
                 MapsUrl = "https://maps.google.com/?q=" + entity.Latitude + "," + entity.Longitude,
-                Arm = entity.Arms.Select(a => a.ToArmIndexDTO()).ToList(),
-                Level = entity.Level,
+                Arms = entity.Arms.Select(a => a.ToArmIndexDTO()).ToList(),
+                Levels = entity.Levels.Select(l => l.ToLevelIndexDTO()).ToList(),
                 Tide = entity.Tide!,
                 Current = entity.Current,
                 Depth = entity.Depth
-
             };
         }
     }
