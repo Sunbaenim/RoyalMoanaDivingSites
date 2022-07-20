@@ -11,7 +11,8 @@ namespace RoyalMoanaDivingSites.API.Mappers
             {
                 ID = entity.ID,
                 DivingSiteId = entity.DivingSiteId,
-                ImageUrl = entity.ImageUrl
+                ImageUrl = entity.ImageUrl,
+                IsMainImage = entity.IsMainImage
             };
         }
     }

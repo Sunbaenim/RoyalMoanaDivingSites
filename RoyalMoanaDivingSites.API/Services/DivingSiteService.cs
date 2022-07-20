@@ -40,5 +40,22 @@ namespace RoyalMoanaDivingSites.API.Services
 
             return new IndexDTO<DivingSiteIndexDTO>(count, results);
         }
+
+        public DivingSiteDetailDTO GetDivingSiteById(int id)
+        {
+            DivingSiteDetailDTO divingSite = _dc.DivingSites
+                .Include("Images")
+                .Include("Arms")
+                .Include("Levels")
+                .Where(ds => ds.ID == id)
+                .Select(ds => ds.ToDivingSiteDetailDTO())
+                .FirstOrDefault()!;
+
+            if (divingSite is null)
+            {
+                throw new KeyNotFoundException();
+            }
+            return divingSite;
+        }
     }
 }

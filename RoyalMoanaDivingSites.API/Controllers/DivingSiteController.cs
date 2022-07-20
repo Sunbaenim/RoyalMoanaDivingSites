@@ -22,5 +22,18 @@ namespace RoyalMoanaDivingSites.API.Controllers
         {
             return Ok(_ds.GetAllDivingSites(filter));
         }
+
+        [HttpGet("{divingSiteId}")]
+        public IActionResult GetDivingSiteById(int divingSiteId)
+        {
+            try
+            {
+                return Ok(_ds.GetDivingSiteById(divingSiteId));
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound(divingSiteId);
+            }
+        }
     }
 }
