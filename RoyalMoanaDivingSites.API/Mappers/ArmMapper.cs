@@ -14,5 +14,14 @@ namespace RoyalMoanaDivingSites.API.Mappers
                 Name = entity.Name
             };
         }
+
+        public static Arm ToArm(this ArmAddDTO dto)
+        {
+            return new Arm
+            {
+                DivingSiteId = dto.DivingSiteId,
+                Name = dto.Name
+            };
+        }
     }
 }

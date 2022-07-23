@@ -14,5 +14,14 @@ namespace RoyalMoanaDivingSites.API.Mappers
                 LevelNumber = entity.LevelNumber
             };
         }
+
+        public static Level ToLevel(this LevelAddDTO dto)
+        {
+            return new Level
+            {
+                DivingSiteId = dto.DivingSiteId,
+                LevelNumber = dto.LevelNumber
+            };
+        }
     }
 }

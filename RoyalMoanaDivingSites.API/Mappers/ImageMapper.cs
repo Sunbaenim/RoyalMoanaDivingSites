@@ -15,5 +15,15 @@ namespace RoyalMoanaDivingSites.API.Mappers
                 IsMainImage = entity.IsMainImage
             };
         }
+
+        public static Image ToImage(this ImageAddDTO dto)
+        {
+            return new Image
+            {
+                DivingSiteId = dto.DivingSiteId,
+                ImageUrl = dto.ImageUrl,
+                IsMainImage = dto.IsMainImage
+            };
+        }
     }
 }

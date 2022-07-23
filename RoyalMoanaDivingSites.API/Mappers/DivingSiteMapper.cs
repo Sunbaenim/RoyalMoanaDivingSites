@@ -1,5 +1,7 @@
 ﻿using RoyalMoanaDivingSites.API.DTO.DivingSite;
+using RoyalMoanaDivingSites.API.DTO.Image;
 using RoyalMoanaDivingSites.DAL.Entities;
+using RoyalMoanaDivingSites.DAL.Enumerations;
 
 namespace RoyalMoanaDivingSites.API.Mappers
 {
@@ -42,6 +44,30 @@ namespace RoyalMoanaDivingSites.API.Mappers
                 IsInitiation = entity.IsInitiation,
                 IsForDisabledPerson = entity.IsForDisabledPerson,
                 IsSpecialDiving = entity.IsSpecialDiving
+            };
+        }
+
+        public static DivingSite ToDivingSite(this DivingSiteAddDTO dto, List<ImageAddDTO> images)
+        {
+            return new DivingSite
+            {
+                Name = dto.Name,
+                Images = images.Select(i => i.ToImage()).ToList(),
+                Latitude = dto.Latitude,
+                Longitude = dto.Longitude,
+                Arms = dto.Arms.Select(a => a.ToArm()).ToList(),
+                Levels = dto.Levels.Select(l => l.ToLevel()).ToList(),
+                Tide = dto.Tide,
+                Current = dto.Current,
+                Depth = dto.Depth,
+                LaunchingDifficulty = Enum.Parse<Difficulty>(dto.LaunchingDifficulty),
+                LaunchingDistance = dto.LaunchingDistance,
+                WindDirection = !string.IsNullOrEmpty(dto.WindDirection) ? Enum.Parse<CardinalPoints>(dto.WindDirection!) : null,
+                IsSnorkeling = dto.IsSnorkeling,
+                IsInitiation = dto.IsInitiation,
+                IsForDisabledPerson = dto.IsForDisabledPerson,
+                IsSpecialDiving = dto.IsSpecialDiving
+
             };
         }
     }

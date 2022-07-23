@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoyalMoanaDivingSites.API.DTO;
 using RoyalMoanaDivingSites.API.DTO.DivingSite;
+using RoyalMoanaDivingSites.API.DTO.Image;
 using RoyalMoanaDivingSites.API.Mappers;
 using RoyalMoanaDivingSites.DAL;
 
@@ -56,6 +57,57 @@ namespace RoyalMoanaDivingSites.API.Services
                 throw new KeyNotFoundException();
             }
             return divingSite;
+        }
+
+        private static string GetFileExtension(string base64String)
+        {
+            return base64String[..5].ToUpper() switch
+            {
+                "/9J/4" => "jpg",
+                "IVBOR" => "png",
+                _ => string.Empty,
+            };
+        }
+
+        private static string GetImageUrlFromBase64(string baseImageUrl, string divingSiteName)
+        {
+            string base64String = baseImageUrl.Contains(',') ? baseImageUrl.Split(",")[1] : baseImageUrl;
+            byte[] base64 = Convert.FromBase64String(base64String);
+            string extensionFile = GetFileExtension(base64String);
+            Guid guid = Guid.NewGuid();
+            string filePath = "assets/diving-sites-images/" + divingSiteName + "-" + guid + "." + extensionFile;
+            File.WriteAllBytes("wwwroot/" + filePath, base64);
+            return filePath;
+        }
+
+        public string CreateDivingSite(DivingSiteAddDTO form)
+        {
+            if (_dc.DivingSites.ToList().Exists(ds => ds.Name == form.Name))
+            {
+                throw new ArgumentException($"Le site de plongée \"{form.Name}\"");
+            }
+            List<ImageAddDTO> images = new();
+            try
+            {
+                foreach (ImageAddDTO image in form.Images)
+                {
+                    images.Add(new ImageAddDTO
+                    {
+                        DivingSiteId = image.DivingSiteId,
+                        ImageUrl = GetImageUrlFromBase64(image.ImageUrl, form.Name),
+                        IsMainImage = image.IsMainImage
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("The encoding of the image has encountered a problem. The encoding must use Base64");
+            }
+
+            _dc.DivingSites.Add(form.ToDivingSite(images));
+            _dc.SaveChanges();
+
+            return form.Name;
         }
     }
 }

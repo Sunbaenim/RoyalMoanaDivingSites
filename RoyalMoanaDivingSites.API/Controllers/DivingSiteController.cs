@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using RoyalMoanaDivingSites.API.DTO;
+﻿using Microsoft.AspNetCore.Mvc;
 using RoyalMoanaDivingSites.API.DTO.DivingSite;
 using RoyalMoanaDivingSites.API.Services;
 
@@ -33,6 +31,19 @@ namespace RoyalMoanaDivingSites.API.Controllers
             catch (KeyNotFoundException)
             {
                 return NotFound(divingSiteId);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult CreateDivingSite(DivingSiteAddDTO form)
+        {
+            try
+            {
+                return Ok(_ds.CreateDivingSite(form));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

@@ -1,6 +1,7 @@
 using RoyalMoanaDivingSites.DAL;
 using Microsoft.EntityFrameworkCore;
 using RoyalMoanaDivingSites.API.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
