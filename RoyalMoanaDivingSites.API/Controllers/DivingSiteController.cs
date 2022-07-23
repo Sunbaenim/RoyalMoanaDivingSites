@@ -46,5 +46,18 @@ namespace RoyalMoanaDivingSites.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{divingSiteId}")]
+        public IActionResult DeleteDivingSite(int divingSiteId)
+        {
+            try
+            {
+                return Ok(_ds.DeleteDivingSite(divingSiteId));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

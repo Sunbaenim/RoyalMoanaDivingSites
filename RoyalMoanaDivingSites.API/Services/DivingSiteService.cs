@@ -4,6 +4,7 @@ using RoyalMoanaDivingSites.API.DTO.DivingSite;
 using RoyalMoanaDivingSites.API.DTO.Image;
 using RoyalMoanaDivingSites.API.Mappers;
 using RoyalMoanaDivingSites.DAL;
+using RoyalMoanaDivingSites.DAL.Entities;
 
 namespace RoyalMoanaDivingSites.API.Services
 {
@@ -108,6 +109,18 @@ namespace RoyalMoanaDivingSites.API.Services
             _dc.SaveChanges();
 
             return form.Name;
+        }
+
+        public int DeleteDivingSite(int divingSiteId)
+        {
+            DivingSite? ds = _dc.DivingSites.Find(divingSiteId);
+            if (ds is null)
+            {
+                throw new KeyNotFoundException();
+            }
+            _dc.DivingSites.Remove(ds);
+            _dc.SaveChanges();
+            return ds.ID;
         }
     }
 }
